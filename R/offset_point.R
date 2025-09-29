@@ -2,28 +2,30 @@
 #' @title offset_point
 #'
 #' @description
-#' Offset Coordinates (crs = 3005)
+#' Offset Coordinates
 #'
-#' Used in offset_points_within_boundary(); offset points using BCCDC methodology
-#' Offset points to maintain confidentiality using BCCDC offsetting methodology:
+#' Used in offset_points_within_boundary()
+#' Offset points to maintain confidentiality using the following offsetting methodology:
 #'     x offset formula: x' = x0 + RandDist * cos(RandAngle)
 #'     y offset formula: y' = y0 + RandDist * sin(RandAngle)
-#'     Note: BCCDC min/max range for random distance number is between 50:200 and for random angle its between 1:360
-#' Note: offsetting MUST be done in crs 3005 (pcs NAD 1983 BC Albers)
+#'     Note: default min/max range for random distance number is between 50:200 and for random angle its between 1:360
+#' Note: offsetting MUST be done in a crs fit for BC mapping like 3005 (pcs NAD 1983 BC Albers)
+#'
+#' Note: offsetting is best done based off of a population density min/max handled in ave_dist_btw_ppl() and offset_points_within_boundary()
 #'
 #' @keywords internal
 #'
 #' @param sf_data_to_offset sf point object requiring offsetting
-#' @param rand_dist_min default min = 50 based on BCCDC methodology
-#' @param rand_dist_max default max = 200 based on BCCDC methodology
-#' @param rand_angle_min default min = 1 based on BCCDC methodology
-#' @param rand_angle_max default max = 360 based on BCCDC methodology
+#' @param rand_dist_min default min = 50
+#' @param rand_dist_max default max = 200
+#' @param rand_angle_min default min = 1
+#' @param rand_angle_max default max = 360
 #'
 #' @return returns an sf point object with offset points
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa")
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
 #'   }
 #'
 #' @export
@@ -48,8 +50,6 @@ offset_point <- function(sf_data_to_offset,
   sf_data_to_offset <- sf_data_to_offset %>%
     ## get a random value within min/max range for distance and angle
     mutate(
-      # rand_dist = sample(rand_dist_min:rand_dist_max, n(), replace = TRUE),
-      # rand_angle = sample(rand_angle_min:rand_angle_max, n(), replace = TRUE)
 
       ## if the input for rand_dist_min/max is length 1,
       rand_dist = if(length(rand_dist_min) == 1 && length(rand_dist_max) == 1){
@@ -80,7 +80,7 @@ offset_point <- function(sf_data_to_offset,
              ## use offset coordinates
              coords = c("x_offset",
                         "y_offset"),
-             ## offset x/y are in crs 3005 format
+             ## identify the crs of the offset x/y
              crs = crs_code,
              ## do not remove the offset cols so they can be compared against original
              remove = FALSE)

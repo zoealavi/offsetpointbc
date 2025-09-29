@@ -1,22 +1,22 @@
-# FUNCTION: Transform to CRS Code 3005 ---------------------------------
+# FUNCTION: Transform to specified CRS Code  ---------------------------------
 #' @title transform_to_crs
 #'
 #' @description
-#' Transform SF's CRS Code to 3005
+#' Transform SF's CRS Code
 #'
-#' Used in offset_points_within_boundary(); ensures both point and polygon sf objects are in the same crs (3005)
+#' Used in offset_points_within_boundary(); ensures both point and polygon sf objects are in the same crs
 #'
 #' @keywords internal
 #'
 #' @param sf_object sf object's crs to evaluate and transform if needed
-#' @param desired_crs_code default 3005 due to offsetting requirement
+#' @param desired_crs_code default 3005; any BC based crs will work
 #'
-#' @return returns an sf object where the crs code = 3005
+#' @return returns an sf object
 #'
 #' @examples
 #' \dontrun{
-#' offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa")
-#' }
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
+#'   }
 #'
 #' @export
 #'

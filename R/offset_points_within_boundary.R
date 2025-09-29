@@ -21,12 +21,12 @@
 #'
 #' You also need an sf polygon object to act as a boundary and ensure offset points remain within the area of interest (for example, bcmaps::health_chsa).
 #'
-#' IMPORTANT: if possible, ensure this polygon layer contains a column with total population within each boundary (ex PEOPLE data).
+#' IMPORTANT: if possible, ensure the boundary polygon layer contains a column with total population for each polygon (ex PEOPLE data).
 #'
 #' Offsetting is most appropriately done when using the average distance between people within a given area; this is estimated by the square root of the inverse of population density.
 #' From this, we generate a minimum offset (1 to 2 times the average distance, 1 is used in this function) and a maximum offset (3 to 5 times the average distance, 3 is used in this function)
 #'
-#' During data preparation before using function, consider excluding cases in low population areas.
+#' Note: During data preparation before using function, consider excluding cases in low population areas.
 #'
 #' @param sf_point_data a point sf object that requires offsetting
 #' @param sf_boundary a polygon sf object required to constrain offsetting within their original boundary
@@ -42,14 +42,14 @@
 #'
 #' @return Returns sf point object where geometry of points have been offset from original input.
 #'
-#' The sf object will contain several new columns providing an idea as to how the offsetting occurred, including: the original x/y coordinates, the offset x/y coordinates; the original boundaryid, offset boundary id and the corrected boundaryid; and the final geometry column uses the corrected x/y coordinates.
+#' The sf object will contain several new columns showing how the offsetting occurred, including: the original x/y coordinates, the offset x/y coordinates; the original boundaryid, offset boundary id and the corrected boundaryid; and the final geometry column.
 #'
 #' Corrected x/y coordinates ensures any points that got offset beyond their original polygon boundary line (ex placed in water or a neighbouring boundary) are nudged back into their original boundary.
 #' Also prints a summary in console.
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa")
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
 #'   }
 #'
 #' @export

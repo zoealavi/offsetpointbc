@@ -10,11 +10,11 @@
 #'
 #' @param sf_obj sf object to identify crs' units used
 #'
-#' @return crs unit inputed; when used in offset_points_within_boundary(), if in meters, runs the rest of the function, otherwise returns an error in console
+#' @return crs unit inputted; when used in offset_points_within_boundary(), if in meters, runs the rest of the function, otherwise returns an error in console
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", crs_code = 3005)
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
 #'   }
 #'
 #' @export

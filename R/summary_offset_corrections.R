@@ -9,13 +9,13 @@
 #' @keywords internal
 #'
 #' @param corrected_offset_data an offset point sf object that requires adjustments due to offset point falling outside their original boundary polygon
-#' @param sf_boundary_id_col_new_name beginning part id col being used to track join (ex: "chsa")
+#' @param sf_boundary_id_col_new_name beginning part id col being used to track join (ex: "boundaryid")
 #'
 #' @return returns an sf point object with a new column flagging rows as TRUE if still in original polygon boundary or FALSE if a mismatch still occurs. Also prints summary in console
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa")
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
 #'   }
 #'
 #' @export
