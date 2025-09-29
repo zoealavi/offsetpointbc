@@ -1,36 +1,51 @@
 # FUNCTION: Offset Points within Boundary ---------------------------------
-## Handles the entire offsetting procedure. Functions above are ordered in a specific way within this function to derive desired output.
+## Handles the entire offsetting procedure. Depends on other functions in package to execute.
 
 #' @title offset_points_within_boundary
 #'
 #' @description
-#' Offset Point Data
+#' Offsets point data to maintain confidentiality.
+#' Designed for BC data; default crs output is 3005 (NAD 1983 / BC Albers) but can input other meter based crs like 26910 (NAD83 / UTM zone 10).
+#' Acknowledgement that BCCDC provided resources and offsetting (geomasking) methodology.
 #'
-#' Offsets point data to maintain confidentiality. Designed for BC data only since offsetting and final output are done using crs 3005, (pcs NAD 1983 BC Albers). Offset methodology provided by BCCDC.
-#'
-#' BCCDC offsetting methodology:
+#' Offsetting methodology:
 #'
 #'     x offset formula: x' = x0 + RandDist * cos(RandAngle)
 #'
 #'     y offset formula: y' = y0 + RandDist * sin(RandAngle)
 #'
+#'
+#' Key Background:
+#'
+#' To offset points, you must have an sf point object in a meters based x/y crs good for BC data such as crs 3005 or 26910.
+#'
+#' You also need an sf polygon object to act as a boundary and ensure offset points remain within the area of interest (for example, bcmaps::health_chsa).
+#'
+#' IMPORTANT: if possible, ensure this polygon layer contains a column with total population within each boundary (ex PEOPLE data).
+#'
+#' Offsetting is most appropriately done when using the average distance between people within a given area; this is estimated by the square root of the inverse of population density.
+#' From this, we generate a minimum offset (1 to 2 times the average distance, 1 is used in this function) and a maximum offset (3 to 5 times the average distance, 3 is used in this function)
+#'
+#' During data preparation before using function, consider excluding cases in low population areas.
+#'
 #' @param sf_point_data a point sf object that requires offsetting
 #' @param sf_boundary a polygon sf object required to constrain offsetting within their original boundary
 #' @param sf_boundary_id_col id column from polygon sf object used to track join to point sf object
-#' @param sf_boundary_id_col_new_name change output column name of id column from polygon sf object
-#' @param sf_boundary_total_pop_col include column name if sf_boundary contains a total population column, default is NULL
-#' @param crs_code default is 3005 (NAD83 / BC Albers) but any meter based crs for x/y will work like 26910 (NAD83 / UTM zone 10)
+#' @param sf_boundary_id_col_new_name if desired, customize output column name of id column from polygon sf object
+#' @param sf_boundary_total_pop_col if included in polygon sf object (highly encouraged), input column name containing total population, default is NULL
+#' @param crs_code default is 3005 (NAD83 / BC Albers); any meter based crs for x/y (for BC) will work like 26910 (NAD83 / UTM zone 10)
 #' @param buffer_dist_to_correct_by_meters distance to buffer polygon boundaries towards the inside ensuring offsetting remains within original polygon
-#' @param rand_dist_min min value for random distance range to be sampled
-#' @param rand_dist_max max value for random distance range to be sampled
-#' @param rand_angle_min min value for random angle range to be sampled
-#' @param rand_angle_max max value for random angle range to be sampled
+#' @param rand_dist_min min value for random distance range to be sampled if population data not provided
+#' @param rand_dist_max max value for random distance range to be sampled if population data not provided
+#' @param rand_angle_min min value for random angle range to be sampled if population data not provided
+#' @param rand_angle_max max value for random angle range to be sampled if population data not provided
 #'
 #' @return Returns sf point object where geometry of points have been offset from original input.
 #'
-#' The sf object contains new columns showing: the original x/y coordinates, the offset x/y coordinates; the original boundaryid, offset boundary id and the corrected boundaryid; and the final geometry column uses the corrected x/y coordinates.
+#' The sf object will contain several new columns providing an idea as to how the offsetting occurred, including: the original x/y coordinates, the offset x/y coordinates; the original boundaryid, offset boundary id and the corrected boundaryid; and the final geometry column uses the corrected x/y coordinates.
 #'
-#' Corrected x/y coordinates ensures any points that got offset beyond their original polygon boundary line (ex placed in water or a neighbouring boundary) are nudged back into their original boundary. Also prints a summary in console.
+#' Corrected x/y coordinates ensures any points that got offset beyond their original polygon boundary line (ex placed in water or a neighbouring boundary) are nudged back into their original boundary.
+#' Also prints a summary in console.
 #'
 #' @examples
 #' \dontrun{
