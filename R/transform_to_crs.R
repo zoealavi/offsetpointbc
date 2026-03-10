@@ -2,20 +2,26 @@
 #' @title transform_to_crs
 #'
 #' @description
-#' Transform SF's CRS Code
+#' Transform CRS Code
 #'
 #' Used in offset_points_within_boundary(); ensures both point and polygon sf objects are in the same crs
 #'
 #' @keywords internal
 #'
 #' @param sf_object sf object's crs to evaluate and transform if needed
-#' @param desired_crs_code default 3005; any BC based crs will work
+#' @param desired_crs_code default 3005; any BC meters based crs will work
 #'
 #' @return returns an sf object
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
+#'   offset_points_within_boundary(
+#'     sf_point_data = bcmaps::bc_cities(),
+#'     sf_boundary = bcmaps::health_chsa(),
+#'     sf_boundary_id_col = "cmnty_hlth_serv_area_code",
+#'     sf_boundary_id_col_new_name = "chsa",
+#'     sf_boundary_total_pop_col = "chsa_population_census"
+#'     )
 #'   }
 #'
 #' @export
