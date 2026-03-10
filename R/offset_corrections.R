@@ -14,13 +14,13 @@
 #' @param offset_boundary_id_col_name_offset boundary id col from offset x/y coordinates in offset_data
 #' @param sf_boundary sf boundary of interest
 #' @param sf_boundary_id_col sf boundary id col desired to identify boundary assigned to point based on current geometry
-#' @param buffer_dist_to_correct_by_meters buffer distance to be made within boundary, default is 5 meters
+#' @param buffer_dist_to_correct_by_meters buffer distance to be made within boundary
 #'
 #' @return returns an sf point object with adjusted offset points that now fall within their original polygon boundary
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "total_pop_chsa")
 #'   }
 #'
 #' @export
@@ -52,7 +52,8 @@ offset_corrections <- function(offset_data,
 
     ## identify the correct boundary id needed for fixing the incorrect point placement
     target_boundary_filtered <- sf_boundary %>%
-      filter(.data[[sf_boundary_id_col]] == no_geom[i, offset_boundary_id_col_name_original])
+      dplyr::filter(.data[[sf_boundary_id_col]] == no_geom[[offset_boundary_id_col_name_original]][i])
+      #filter(.data[[sf_boundary_id_col]] == no_geom[i, offset_boundary_id_col_name_original]) ##2026-03-09: deprecated in dplyr 1.1.0: returns a 1×1 tibble/data.frame (or a 1‑column matrix), not a scalar vector value. Starting with dplyr 1.1.0, using one‑column matrices/data frames as logical inputs in filter() is deprecated. filter() expects a one-dimensional logical vector (or a scalar value when used in a comparison), not a data frame/matrix.
 
     ## create a buffered edge INSIDE the correct boundary to ensure adjusted points land inside boundary
     target_boundary_buffered <- st_buffer(target_boundary_filtered, dist = -buffer_dist_to_correct_by_meters)
