@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "total_pop_chsa")
 #'   }
 #'
 #' @export
@@ -36,14 +36,15 @@ summary_offset_corrections <- function(corrected_offset_data,
   summary_table <- summary_counts %>%
     st_drop_geometry() %>%
     summarize(total = n(),
-              .by = offset_boundary_match_original)
+              .by = offset_boundary_match_original) %>%
+    as.data.frame()
 
   ## print out summaries into console for end user review
-  print(st_crs(summary_counts))
+  #print(st_crs(summary_counts))
 
   cat("
 
-  Summary of How Offset Performed
+  Summary of Offsetting Performance
 
   Definitions for summary table:
       TRUE: Offset succesful, original boundary id matches final (corrected) offset boundary id
