@@ -25,7 +25,13 @@
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
+#'   offset_points_within_boundary(
+#'     sf_point_data = bcmaps::bc_cities(),
+#'     sf_boundary = bcmaps::health_chsa(),
+#'     sf_boundary_id_col = "cmnty_hlth_serv_area_code",
+#'     sf_boundary_id_col_new_name = "chsa",
+#'     sf_boundary_total_pop_col = "chsa_population_census"
+#'     )
 #'   }
 #'
 #' @export
@@ -51,7 +57,7 @@ offset_point <- function(sf_data_to_offset,
     ## get a random value within min/max range for distance and angle
     mutate(
 
-      ## if the input for rand_dist_min/max is length 1,
+      ## if the input for rand_dist_min/max is length 1 (not population based),
       rand_dist = if(length(rand_dist_min) == 1 && length(rand_dist_max) == 1){
 
         ## then select a random number between those min/max values
@@ -59,7 +65,7 @@ offset_point <- function(sf_data_to_offset,
 
       } else {
 
-        ## else, us the column defined min/max for a given row on that row
+        ## else, us the column defined min/max for a given row on that row (population based)
         mapply(function(min, max) runif(1, min, max), rand_dist_min, rand_dist_max)
 
       },
