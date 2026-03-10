@@ -5,7 +5,7 @@
 #'
 #' @description
 #' Offsets point data to maintain confidentiality.
-#' Designed for BC data; default crs output is 3005 (NAD 1983 / BC Albers) but can input other meter based crs like 26910 (NAD83 / UTM zone 10).
+#' Designed for BC data; default crs output is 3005 (NAD 1983 / BC Albers); can input other meter based crs like 26910 (NAD83 / UTM zone 10).
 #' Acknowledgement that BCCDC provided resources and offsetting (geomasking) methodology.
 #'
 #' Offsetting methodology:
@@ -17,39 +17,42 @@
 #'
 #' Key Background:
 #'
-#' To offset points, you must have an sf point object in a meters based x/y crs good for BC data such as crs 3005 or 26910.
+#' code relies on sf package for spatial data manipulation.
 #'
-#' You also need an sf polygon object to act as a boundary and ensure offset points remain within the area of interest (for example, bcmaps::health_chsa).
+#' A point and polygon object in a meters based crs compatible for BC data (crs 3005 or 26910) is required. The polygon boundary layer ensures offset points remain within the area of interest (example, use bcmaps::health_chsa())
 #'
-#' IMPORTANT: if possible, ensure the boundary polygon layer contains a column with total population for each polygon (ex PEOPLE data).
+#' Important: if possible, in the polygon boundary layer, include a column with total population for each boundary (ex link to BC Stats' PEOPLE data).
 #'
-#' Offsetting is most appropriately done when using the average distance between people within a given area; this is estimated by the square root of the inverse of population density.
+#' Offsetting is most appropriately done when using the average distance between people within a given area. This is estimated by the square root of the inverse of population density.
 #' From this, we generate a minimum offset (1 to 2 times the average distance, 1 is used in this function) and a maximum offset (3 to 5 times the average distance, 3 is used in this function)
 #'
-#' Note: During data preparation before using function, consider excluding cases in low population areas.
+#' Note: During data preparation, before using this function, consider excluding cases in low population areas.
 #'
-#' @param sf_point_data a point sf object that requires offsetting
-#' @param sf_boundary a polygon sf object required to constrain offsetting within their original boundary
-#' @param sf_boundary_id_col id column from polygon sf object used to track join to point sf object
-#' @param sf_boundary_id_col_new_name if desired, customize output column name of id column from polygon sf object
-#' @param sf_boundary_total_pop_col if included in polygon sf object (highly encouraged), input column name containing total population, default is NULL
-#' @param crs_code default is 3005 (NAD83 / BC Albers); any meter based crs for x/y (for BC) will work like 26910 (NAD83 / UTM zone 10)
-#' @param buffer_dist_to_correct_by_meters distance to buffer polygon boundaries towards the inside ensuring offsetting remains within original polygon
-#' @param rand_dist_min min value for random distance range to be sampled if population data not provided
-#' @param rand_dist_max max value for random distance range to be sampled if population data not provided
-#' @param rand_angle_min min value for random angle range to be sampled if population data not provided
-#' @param rand_angle_max max value for random angle range to be sampled if population data not provided
+#' @param sf_point_data a point object that requires offsetting
+#' @param sf_boundary a polygon object required to constrain offsetting within original boundary
+#' @param sf_boundary_id_col id column from polygon object used to track join to point object
+#' @param sf_boundary_id_col_new_name customize output column name of id column from polygon object
+#' @param sf_boundary_total_pop_col highly encouraged, input column name from polygon object containing total population
+#' @param min_pop_offset_dis set a minimum offset for population based offsetting (1 to 2 times the average distance is standard)
+#' @param max_pop_offset_dis set a maximum offset for population based offsetting (3 to 5 times the average distance is standard)
+#' @param crs_code any meter based crs compatible for BC
+#' @param buffer_dist_to_correct_by_meters distance to buffer polygon boundaries towards inside ensuring offsetting remains within original polygon
+#' @param rand_dist_min if population data not provided, min value for random distance range to be sampled
+#' @param rand_dist_max if population data not provided, max value for random distance range to be sampled
+#' @param rand_angle_min if population data not provided, min value for random angle range to be sampled
+#' @param rand_angle_max if population data not provided, max value for random angle range to be sampled
 #'
 #' @return Returns sf point object where geometry of points have been offset from original input.
 #'
-#' The sf object will contain several new columns showing how the offsetting occurred, including: the original x/y coordinates, the offset x/y coordinates; the original boundaryid, offset boundary id and the corrected boundaryid; and the final geometry column.
+#' Output contains several new columns showing how offsetting occurred, including: the original x/y coordinates, offset x/y coordinates, original boundary id, offset boundary id and the corrected boundary id.
 #'
-#' Corrected x/y coordinates ensures any points that got offset beyond their original polygon boundary line (ex placed in water or a neighbouring boundary) are nudged back into their original boundary.
+#' Corrected x/y coordinates ensures any points that were offset beyond their original polygon boundary line (ex placed in water or a neighbouring boundary) are nudged back into their original boundary.
+#'
 #' Also prints a summary in console.
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "sf_boundary_total_pop_col")
+#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "total_pop_chsa")
 #'   }
 #'
 #' @export
@@ -66,8 +69,14 @@ offset_points_within_boundary <- function(sf_point_data,
                                           rand_dist_min = 50,
                                           rand_dist_max = 200,
                                           rand_angle_min = 1,
-                                          rand_angle_max = 360
+                                          rand_angle_max = 360,
+                                          min_pop_offset_dis = 1,
+                                          max_pop_offset_dis = 3
 ){
+
+  ## STEP 0: Confirm a point and polygon object have been provided
+  is_point_sf(sf_point_data)
+  is_polygon_sf(sf_boundary)
 
   ## STEP 1.A: transform sf object to crs 3005
   point_data <- transform_to_crs(sf_point_data,
@@ -80,7 +89,7 @@ offset_points_within_boundary <- function(sf_point_data,
   if(get_crs_cs_units(point_data) != "metre"){
 
     stop("
-    The input for crs_code is not a meters based unit for x/y.
+    The input for crs_code is not meters based.
     Suggested crs code inputs are 3005 (NAD83 / BC Albers) or 26910 (NAD83 / UTM zone 10).
     Reminder to use BC data only with this function.
          ")
@@ -94,7 +103,9 @@ offset_points_within_boundary <- function(sf_point_data,
       ## determine the population density and average distance of people per boundary
       boundary_data <- boundary_data %>%
         ave_dist_btw_ppl(.,
-                         total_pop_col = sf_boundary_total_pop_col)
+                         total_pop_col = sf_boundary_total_pop_col,
+                         min_offset_dis = min_pop_offset_dis,
+                         max_offset_dis = max_pop_offset_dis)
 
       ## assign min and max average distance to be offset by into point data
       point_data <- point_data %>%
