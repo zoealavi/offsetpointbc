@@ -17,7 +17,13 @@
 #'
 #' @examples
 #' \dontrun{
-#'   offset_points_within_boundary(postal_code, bcmaps::health_chsa, "cmnty_hlth_serv_area_code", "chsa", "total_pop_chsa")
+#'   offset_points_within_boundary(
+#'     sf_point_data = bcmaps::bc_cities(),
+#'     sf_boundary = bcmaps::health_chsa(),
+#'     sf_boundary_id_col = "cmnty_hlth_serv_area_code",
+#'     sf_boundary_id_col_new_name = "chsa",
+#'     sf_boundary_total_pop_col = "chsa_population_census"
+#'     )
 #'   }
 #'
 #' @export
