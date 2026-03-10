@@ -1,0 +1,21 @@
+Package: offsetpointbc
+Type: Package
+Title: Offsets point data (BC data only)
+Version: 1.0.0
+Authors@R: c(
+    person(
+      "Zoe", "Alavi",
+      email = "zoe.alavi@fraserhealth.ca",
+      role = c("aut", "cre")
+    )
+  )
+Description: Randomly offests point data to maintain confidentiality. Designed for BC data only.
+License: MIT + file LICENSE
+Depends: 
+  R (>= 4.4.0)
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    sf,
+    dplyr
+RoxygenNote: 7.3.3
