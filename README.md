@@ -45,7 +45,7 @@ Key Background:
 
 ## Installation
 
-You can install the offsetpointbc pacakge like so:
+You can install the offsetpointbc package with the following code:
 
 ``` r
 devtools::install_github("https://github.com/zoealavi/offsetpointbc")
@@ -134,11 +134,11 @@ ggplot(data = boundary_chsa) + ## create a base layer
 
 | id                                              | fcode      | bcmj_tag | name               | long_type             | min_ave_dist | max_ave_dist | chsa_original | x_original | y_original |  rand_dist | rand_angle | x_offset | y_offset | geometry                 | chsa_offset | chsa_corrected | offset_boundary_match_original |
 |:------------------------------------------------|:-----------|---------:|:-------------------|:----------------------|-------------:|-------------:|--------------:|-----------:|-----------:|-----------:|-----------:|---------:|---------:|:-------------------------|------------:|---------------:|:-------------------------------|
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 1959.53180 |        235 |  1329735 | 496388.8 | POINT (1329735 496388.8) |        2110 |           2110 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  148.08854 |         61 |  1279124 | 456083.7 | POINT (1279124 456083.7) |        2132 |           2132 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  194.06237 |        293 |  1249694 | 460117.0 | POINT (1249694 460117)   |        2316 |           2316 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |   76.71008 |        169 |  1244291 | 459990.5 | POINT (1244291 459990.5) |        2311 |           2311 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   90.59947 |        103 |  1233302 | 463677.7 | POINT (1233302 463677.7) |        2335 |           2335 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 2288.82318 |        191 |  1329491 | 496612.8 | POINT (1329491 496612.8) |        2110 |           2110 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  146.05486 |        162 |  1279192 | 456083.9 | POINT (1279192 456083.9) |        2132 |           2132 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  174.32369 |        270 |  1249996 | 460229.7 | POINT (1249996 460229.7) |        2316 |           2316 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |   95.31552 |        311 |  1244134 | 460038.3 | POINT (1244134 460038.3) |        2311 |           2311 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   93.24190 |         67 |  1233324 | 463541.4 | POINT (1233324 463541.4) |        2335 |           2335 | TRUE                           |
 
 # Visualize offsetting
 

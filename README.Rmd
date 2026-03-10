@@ -41,7 +41,7 @@ Key Background:
 
 ## Installation
 
-You can install the offsetpointbc pacakge like so:
+You can install the offsetpointbc package with the following code:
 
 ``` r
 devtools::install_github("https://github.com/zoealavi/offsetpointbc")
