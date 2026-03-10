@@ -52,7 +52,7 @@ devtools::install_github("https://github.com/zoealavi/offsetpointbc")
 
 This is a basic example on how to run the function:
 
-```{r example, echo = TRUE, eval = TRUE, results = 'hide'}
+```{r example, echo = TRUE, eval = TRUE, results = 'hide', fig.show = 'hide', message = FALSE, warning = FALSE}
 library(offsetpointbc)
 
 pacman::p_load(dplyr,
@@ -60,8 +60,7 @@ pacman::p_load(dplyr,
                bcmaps,
                ggplot2,
                ggthemes,
-               sf,
-               knitr
+               sf
 )
 
 # Boundary Layer ---------------------------------------------
@@ -127,11 +126,11 @@ ggplot(data = boundary_chsa) + ## create a base layer
 
 ```
 
-# Function output:
+# Function output
 
 ```{r offset_pop_density, echo = FALSE}
 offset_pop_density %>% 
-  kable()
+  head(5)
 ```
 
 # Visualize offsetting 
