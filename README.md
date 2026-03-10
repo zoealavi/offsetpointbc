@@ -136,20 +136,20 @@ summary(offset_pop_density)
 #>                     Mean   :201.14   Mean   : 503.43   Mean   :2228  
 #>                     3rd Qu.:150.25   3rd Qu.: 350.76   3rd Qu.:2262  
 #>                     Max.   :833.47   Max.   :2400.42   Max.   :2342  
-#>    x_original        y_original       rand_dist         rand_angle    
-#>  Min.   :1217710   Min.   :450637   Min.   :  62.55   Min.   : 22.00  
-#>  1st Qu.:1230290   1st Qu.:462781   1st Qu.:  92.78   1st Qu.: 87.25  
-#>  Median :1238635   Median :473352   Median : 138.51   Median :138.00  
-#>  Mean   :1252586   Mean   :471725   Mean   : 380.77   Mean   :167.40  
-#>  3rd Qu.:1271510   3rd Qu.:479963   3rd Qu.: 285.30   3rd Qu.:259.00  
-#>  Max.   :1331330   Max.   :495251   Max.   :1907.34   Max.   :312.00  
+#>    x_original        y_original       rand_dist         rand_angle   
+#>  Min.   :1217710   Min.   :450637   Min.   :  69.19   Min.   :  3.0  
+#>  1st Qu.:1230290   1st Qu.:462781   1st Qu.:  95.82   1st Qu.: 64.5  
+#>  Median :1238635   Median :473352   Median : 116.08   Median :167.5  
+#>  Mean   :1252586   Mean   :471725   Mean   : 355.26   Mean   :169.2  
+#>  3rd Qu.:1271510   3rd Qu.:479963   3rd Qu.: 300.57   3rd Qu.:260.8  
+#>  Max.   :1331330   Max.   :495251   Max.   :1951.07   Max.   :357.0  
 #>     x_offset          y_offset               geometry   chsa_offset  
-#>  Min.   :1217846   Min.   :450665   POINT        :20   Min.   :2110  
-#>  1st Qu.:1230259   1st Qu.:462714   epsg:3005    : 0   1st Qu.:2150  
-#>  Median :1238701   Median :473442   +proj=aea ...: 0   Median :2238  
-#>  Mean   :1252541   Mean   :471548                      Mean   :2228  
-#>  3rd Qu.:1272030   3rd Qu.:479645                      3rd Qu.:2262  
-#>  Max.   :1329622   Max.   :494404                      Max.   :2342  
+#>  Min.   :1217639   Min.   :450649   POINT        :20   Min.   :2110  
+#>  1st Qu.:1230250   1st Qu.:462713   epsg:3005    : 0   1st Qu.:2150  
+#>  Median :1238599   Median :473408   +proj=aea ...: 0   Median :2238  
+#>  Mean   :1252811   Mean   :471751                      Mean   :2228  
+#>  3rd Qu.:1271846   3rd Qu.:479871                      3rd Qu.:2262  
+#>  Max.   :1333245   Max.   :494874                      Max.   :2342  
 #>  chsa_corrected offset_boundary_match_original
 #>  Min.   :2110   Mode:logical                  
 #>  1st Qu.:2150   TRUE:20                       
