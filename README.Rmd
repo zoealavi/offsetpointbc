@@ -60,7 +60,8 @@ pacman::p_load(dplyr,
                bcmaps,
                ggplot2,
                ggthemes,
-               sf
+               sf,
+               knitr
 )
 
 # Boundary Layer ---------------------------------------------
@@ -128,9 +129,12 @@ ggplot(data = boundary_chsa) + ## create a base layer
 
 # Function output
 
+- top 5 rows from offset_pop_density
+
 ```{r offset_pop_density, echo = FALSE}
 offset_pop_density %>% 
-  head(5)
+  head(5) %>% 
+  kable()
 ```
 
 # Visualize offsetting 

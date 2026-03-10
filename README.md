@@ -62,7 +62,8 @@ pacman::p_load(dplyr,
                bcmaps,
                ggplot2,
                ggthemes,
-               sf
+               sf,
+               knitr
 )
 
 # Boundary Layer ---------------------------------------------
@@ -128,23 +129,15 @@ ggplot(data = boundary_chsa) + ## create a base layer
 
 # Function output
 
-    #> Simple feature collection with 5 features and 17 fields
-    #> Geometry type: POINT
-    #> Dimension:     XY
-    #> Bounding box:  xmin: 1233277 ymin: 456244.9 xmax: 1330268 ymax: 497280.1
-    #> Projected CRS: NAD83 / BC Albers
-    #> # A tibble: 5 × 18
-    #>   id      fcode bcmj_tag name  long_type min_ave_dist max_ave_dist chsa_original
-    #>   <chr>   <chr>    <int> <chr> <chr>            <dbl>        <dbl>         <dbl>
-    #> 1 WHSE_B… AR08…       52 Hope  DISTRICT…        833.         2400.          2110
-    #> 2 WHSE_B… AR05…       54 Abbo… CITY              96.2         189.          2132
-    #> 3 WHSE_B… AR08…       55 Lang… DISTRICT…        137.          312.          2316
-    #> 4 WHSE_B… AR05…       56 Lang… CITY              68.8         106.          2311
-    #> 5 WHSE_B… AR05…       57 Surr… CITY              68.0         104.          2335
-    #> # ℹ 10 more variables: x_original <dbl>, y_original <dbl>, rand_dist <dbl>,
-    #> #   rand_angle <int>, x_offset <dbl>, y_offset <dbl>, geometry <POINT [m]>,
-    #> #   chsa_offset <dbl>, chsa_corrected <dbl>,
-    #> #   offset_boundary_match_original <lgl>
+- top 5 rows from offset_pop_density
+
+| id                                              | fcode      | bcmj_tag | name               | long_type             | min_ave_dist | max_ave_dist | chsa_original | x_original | y_original | rand_dist | rand_angle | x_offset | y_offset | geometry                 | chsa_offset | chsa_corrected | offset_boundary_match_original |
+|:------------------------------------------------|:-----------|---------:|:-------------------|:----------------------|-------------:|-------------:|--------------:|-----------:|-----------:|----------:|-----------:|---------:|---------:|:-------------------------|------------:|---------------:|:-------------------------------|
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 912.63643 |        359 |  1331927 | 495941.9 | POINT (1331927 495941.9) |        2110 |           2110 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 | 140.55805 |        228 |  1279129 | 456363.5 | POINT (1279129 456363.5) |        2132 |           2132 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 | 266.67651 |        224 |  1249668 | 460044.0 | POINT (1249668 460044)   |        2316 |           2316 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 | 101.51473 |          7 |  1244306 | 460103.3 | POINT (1244306 460103.3) |        2311 |           2311 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |  80.90735 |        266 |  1233331 | 463690.8 | POINT (1233331 463690.8) |        2335 |           2335 | TRUE                           |
 
 # Visualize offsetting
 
