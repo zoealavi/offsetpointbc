@@ -28,6 +28,7 @@ Offsetting methodology:
 - y offset formula: y' = y0 + RandDist * sin(RandAngle)
 
 Key Background:
+
 - code relies on sf package for spatial data manipulation.
 
 - A point and polygon object in a meters based crs compatible for BC data (crs 3005 or 26910) is required. The polygon boundary layer ensures offset points remain within the area of interest (example, use bcmaps::health_chsa())
@@ -51,7 +52,7 @@ devtools::install_github("https://github.com/zoealavi/offsetpointbc")
 
 This is a basic example on how to run the function:
 
-```{r example}
+```{r example, echo = TRUE, eval = TRUE, results = 'hide'}
 library(offsetpointbc)
 
 pacman::p_load(dplyr,
@@ -59,7 +60,8 @@ pacman::p_load(dplyr,
                bcmaps,
                ggplot2,
                ggthemes,
-               sf
+               sf,
+               knitr
 )
 
 # Boundary Layer ---------------------------------------------
@@ -100,21 +102,44 @@ offset_pop_density <- offset_points_within_boundary(
   crs_code = 3005 #default or can use 26910
 )
 
+# Visualize ------------------------------------------------------------
+ggplot(data = boundary_chsa) + ## create a base layer
+  
+  ## adjust base layer (grey)
+  geom_sf(lwd = .5,
+          fill = "ghostwhite",
+          color = "white") +
+  
+  ## original point data
+  geom_sf(data = point_bc_cities,
+          shape = 21,
+          colour = "white",
+          fill = "green4") +
+  
+  ## offset point data
+  geom_sf(data = offset_pop_density,
+          shape = 21,
+          colour = "white",
+          fill = "orange") +
+  
+  theme_map()
+
 
 ```
 
-# Summary of function output:
+# Function output:
 
-```{r offset_pop_density}
-summary(offset_pop_density)
+```{r offset_pop_density, echo = FALSE}
+offset_pop_density %>% 
+  kable()
 ```
 
 # Visualize offsetting 
 
-Green is original point location
-Orange is offset location
+- Green is original point location
+- Orange is offset location
 
-```{r visualize_offset}
+```{r visualize_offset, echo = FALSE}
 
 ggplot(data = boundary_chsa) + ## create a base layer
   
