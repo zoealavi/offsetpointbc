@@ -33,8 +33,7 @@ Key Background:
 
 - A point and polygon object in a meters based crs compatible for BC data (crs 3005 or 26910) is required. The polygon boundary layer ensures offset points remain within the area of interest (example, use bcmaps::health_chsa())
 
-- Important: if possible, in the polygon boundary layer, include a column with total population for each boundary (ex link to BC Stats' PEOPLE data).
-
+- Important: if possible, in the polygon boundary layer, include a column with total population for each boundary (for example, bcmaps::health_chsa() comes with a census population column "chsa_population_census").
   - Offsetting is most appropriately done when using the average distance between people within a given area. This is estimated by the square root of the inverse of population density.
   - From this, we generate a minimum offset (1 to 2 times the average distance, 1 is used in this function) and a maximum offset (3 to 5 times the average distance, 3 is used in this function)
 
@@ -42,7 +41,7 @@ Key Background:
 
 ## Installation
 
-You can install the development version of offsetpointbc like so:
+You can install the offsetpointbc pacakge like so:
 
 ``` r
 devtools::install_github("https://github.com/zoealavi/offsetpointbc")
