@@ -84,7 +84,7 @@ offset_points_within_boundary <- function(sf_point_data,
   is_point_sf(sf_point_data)
   is_polygon_sf(sf_boundary)
 
-  ## STEP 1.A: transform sf object to crs 3005
+  ## STEP 1.A: transform sf object to defined crs
   point_data <- transform_to_crs(sf_point_data,
                                  desired_crs_code = crs_code)
 
