@@ -30,7 +30,7 @@ Offsetting methodology:
 ## Key Background
 
 - A point and polygon object in a meters based crs, compatible for BC data (crs 3005 or 26910), is required. 
--     The boundary layer ensures offset points remain within the original area of interest. A point's original boundary is noted, then offset. If new offset location is beyond the point's original boundary (example in a neighoubouring boundary or into water), the point is nudged back to its original boundary. From its new offset location, it gets nudged back to the closest edge of the original boundary plus 5 meters within it (default, see the parameter "buffer_dist_to_correct_by_meters"). 
+  - The boundary layer ensures offset points remain within the original area of interest. A point's original boundary is noted, then offset. If new offset location is beyond the point's original boundary (example in a neighoubouring boundary or into water), the point is nudged back to its original boundary. From its new offset location, it gets nudged back to the closest edge of the original boundary plus 5 meters within it (default, see the parameter "buffer_dist_to_correct_by_meters"). 
 
 - *Important*: if possible, in the polygon boundary layer, include a column with total population for each boundary (for example, bcmaps::health_chsa() comes with a census population column "chsa_population_census").
   - Offsetting is most appropriately done when using the average distance between people within a given area. This is estimated by the square root of the inverse of population density.

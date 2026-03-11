@@ -24,7 +24,14 @@ Offsetting methodology:
 - A point and polygon object in a meters based crs, compatible for BC
   data (crs 3005 or 26910), is required.
 
-- The boundary layer ensures offset points remain within the original area of interest. A point's original boundary is noted, then offset. If new offset location is beyond the point's original boundary (example in a neighoubouring boundary or into water), the point is nudged back to its original boundary. From its new offset location, it gets nudged back to the closest edge of the original boundary plus 5 meters within it (default, see the parameter "buffer_dist_to_correct_by_meters"). 
+  - The boundary layer ensures offset points remain within the original
+    area of interest. A point’s original boundary is noted, then offset.
+    If new offset location is beyond the point’s original boundary
+    (example in a neighoubouring boundary or into water), the point is
+    nudged back to its original boundary. From its new offset location,
+    it gets nudged back to the closest edge of the original boundary
+    plus 5 meters within it (default, see the parameter
+    “buffer_dist_to_correct_by_meters”).
 
 - *Important*: if possible, in the polygon boundary layer, include a
   column with total population for each boundary (for example,
@@ -134,11 +141,11 @@ ggplot(data = boundary_chsa) + ## create a base layer
 
 | id                                              | fcode      | bcmj_tag | name               | long_type             | min_ave_dist | max_ave_dist | chsa_original | x_original | y_original |  rand_dist | rand_angle | x_offset | y_offset | geometry                 | chsa_offset | chsa_corrected | offset_boundary_match_original |
 |:------------------------------------------------|:-----------|---------:|:-------------------|:----------------------|-------------:|-------------:|--------------:|-----------:|-----------:|-----------:|-----------:|---------:|---------:|:-------------------------|------------:|---------------:|:-------------------------------|
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 2282.45646 |        162 |  1331802 | 493017.9 | POINT (1331802 493017.9) |        2110 |           2110 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  183.86548 |         42 |  1279088 | 456058.3 | POINT (1279088 456058.3) |        2132 |           2132 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  239.28820 |        254 |  1249611 | 460368.6 | POINT (1249611 460368.6) |        2316 |           2316 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |   74.33394 |         16 |  1244158 | 460015.3 | POINT (1244158 460015.3) |        2311 |           2311 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   72.74884 |        196 |  1233397 | 463689.6 | POINT (1233397 463689.6) |        2335 |           2335 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 2295.27393 |         38 |  1333523 | 495931.4 | POINT (1333523 495931.4) |        2110 |           2110 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  183.19887 |         14 |  1279187 | 456408.3 | POINT (1279187 456408.3) |        2132 |           2132 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  239.04771 |        278 |  1249832 | 460499.4 | POINT (1249832 460499.4) |        2316 |           2316 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |   95.85356 |         36 |  1244217 | 459941.6 | POINT (1244217 459941.6) |        2311 |           2311 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   90.94115 |        101 |  1233454 | 463662.3 | POINT (1233454 463662.3) |        2335 |           2335 | TRUE                           |
 
 # Visualize offsetting
 
