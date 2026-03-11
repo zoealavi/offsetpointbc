@@ -11,7 +11,7 @@ confidentiality. The package is designed for BC data projected to a
 meters based crs like crs 3005 (NAD 1983 / BC Albers) (default) or crs
 26910 (NAD83 / UTM zone 10).
 
-Appreciation and acknowledgement goes to Sunny Mak from BCCDC who
+Appreciation and acknowledgement goes to Sunny Mak from the BCCDC who
 provided resources and offsetting (geomasking) methodology.
 
 Offsetting methodology:
@@ -19,16 +19,14 @@ Offsetting methodology:
 - x offset formula: x’ = x0 + RandDist \* cos(RandAngle)
 - y offset formula: y’ = y0 + RandDist \* sin(RandAngle)
 
-Key Background:
+## Key Background
 
-- code relies on sf package for spatial data manipulation.
+- A point and polygon object in a meters based crs, compatible for BC
+  data (crs 3005 or 26910), is required.
 
-- A point and polygon object in a meters based crs compatible for BC
-  data (crs 3005 or 26910) is required. The polygon boundary layer
-  ensures offset points remain within the area of interest (example, use
-  bcmaps::health_chsa())
+- The boundary layer ensures offset points remain within the original area of interest. A point's original boundary is noted, then offset. If new offset location is beyond the point's original boundary (example in a neighoubouring boundary or into water), the point is nudged back to its original boundary. From its new offset location, it gets nudged back to the closest edge of the original boundary plus 5 meters within it (default, see the parameter "buffer_dist_to_correct_by_meters"). 
 
-- Important: if possible, in the polygon boundary layer, include a
+- *Important*: if possible, in the polygon boundary layer, include a
   column with total population for each boundary (for example,
   bcmaps::health_chsa() comes with a census population column
   “chsa_population_census”).
@@ -38,10 +36,12 @@ Key Background:
     the square root of the inverse of population density.
   - From this, we generate a minimum offset (1 to 2 times the average
     distance, 1 is used in this function) and a maximum offset (3 to 5
-    times the average distance, 3 is used in this function)
+    times the average distance, 3 is used in this function).
 
-- Note: During data preparation, before using this function, consider
-  excluding cases in low population areas.
+- Consider excluding cases in low population areas during point data
+  preparation, before using this function.
+
+- Code relies on sf package for spatial data manipulation.
 
 ## Installation
 
@@ -134,11 +134,11 @@ ggplot(data = boundary_chsa) + ## create a base layer
 
 | id                                              | fcode      | bcmj_tag | name               | long_type             | min_ave_dist | max_ave_dist | chsa_original | x_original | y_original |  rand_dist | rand_angle | x_offset | y_offset | geometry                 | chsa_offset | chsa_corrected | offset_boundary_match_original |
 |:------------------------------------------------|:-----------|---------:|:-------------------|:----------------------|-------------:|-------------:|--------------:|-----------:|-----------:|-----------:|-----------:|---------:|---------:|:-------------------------|------------:|---------------:|:-------------------------------|
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 1774.15603 |        180 |  1330269 | 493829.8 | POINT (1330269 493829.8) |        2110 |           2110 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  119.13341 |         16 |  1279048 | 456192.5 | POINT (1279048 456192.5) |        2132 |           2132 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  138.81707 |        136 |  1249739 | 460150.7 | POINT (1249739 460150.7) |        2316 |           2316 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |   93.02146 |        101 |  1244312 | 460078.7 | POINT (1244312 460078.7) |        2311 |           2311 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   97.56490 |         26 |  1233436 | 463695.6 | POINT (1233436 463695.6) |        2335 |           2335 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 2282.45646 |        162 |  1331802 | 493017.9 | POINT (1331802 493017.9) |        2110 |           2110 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  183.86548 |         42 |  1279088 | 456058.3 | POINT (1279088 456058.3) |        2132 |           2132 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  239.28820 |        254 |  1249611 | 460368.6 | POINT (1249611 460368.6) |        2316 |           2316 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |   74.33394 |         16 |  1244158 | 460015.3 | POINT (1244158 460015.3) |        2311 |           2311 | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   72.74884 |        196 |  1233397 | 463689.6 | POINT (1233397 463689.6) |        2335 |           2335 | TRUE                           |
 
 # Visualize offsetting
 
