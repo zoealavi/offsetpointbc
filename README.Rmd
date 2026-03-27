@@ -107,7 +107,7 @@ ggplot(data = boundary_chsa) + ## create a base layer
   
   ## adjust base layer (grey)
   geom_sf(lwd = .5,
-          fill = "ghostwhite",
+          fill = "grey",
           color = "white") +
   
   ## original point data

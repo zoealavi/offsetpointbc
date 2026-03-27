@@ -167,13 +167,17 @@ offset_points_within_boundary <- function(sf_point_data,
                                                               sf_boundary_id_col_new_name = paste0(sf_boundary_id_col_new_name, "_corrected")
     )
 
+    distance_offset_by <- distance_offset(offset_active_cases_confirmed)
+
+
     ## STEP 7: provide summary of results in console for end user to review
-    summary_offset_result <- summary_offset_corrections(offset_active_cases_confirmed,
+    summary_offset_result <- summary_offset_corrections(distance_offset_by,
                                                         sf_boundary_id_col_new_name = sf_boundary_id_col_new_name)
 
 
 
     return(summary_offset_result)
+
   }
 
 }

@@ -117,7 +117,7 @@ ggplot(data = boundary_chsa) + ## create a base layer
   
   ## adjust base layer (grey)
   geom_sf(lwd = .5,
-          fill = "ghostwhite",
+          fill = "grey",
           color = "white") +
   
   ## original point data
@@ -139,13 +139,13 @@ ggplot(data = boundary_chsa) + ## create a base layer
 
 - top 5 rows from offset_pop_density
 
-| id                                              | fcode      | bcmj_tag | name               | long_type             | min_ave_dist | max_ave_dist | chsa_original | x_original | y_original |  rand_dist | rand_angle | x_offset | y_offset | geometry                 | chsa_offset | chsa_corrected | offset_boundary_match_original |
-|:------------------------------------------------|:-----------|---------:|:-------------------|:----------------------|-------------:|-------------:|--------------:|-----------:|-----------:|-----------:|-----------:|---------:|---------:|:-------------------------|------------:|---------------:|:-------------------------------|
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 2295.27393 |         38 |  1333523 | 495931.4 | POINT (1333523 495931.4) |        2110 |           2110 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  183.19887 |         14 |  1279187 | 456408.3 | POINT (1279187 456408.3) |        2132 |           2132 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  239.04771 |        278 |  1249832 | 460499.4 | POINT (1249832 460499.4) |        2316 |           2316 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |   95.85356 |         36 |  1244217 | 459941.6 | POINT (1244217 459941.6) |        2311 |           2311 | TRUE                           |
-| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   90.94115 |        101 |  1233454 | 463662.3 | POINT (1233454 463662.3) |        2335 |           2335 | TRUE                           |
+| id                                              | fcode      | bcmj_tag | name               | long_type             | min_ave_dist | max_ave_dist | chsa_original | x_original | y_original |  rand_dist | rand_angle | x_offset | y_offset | geometry                 | chsa_offset | chsa_corrected |    dist_offset_m | offset_boundary_match_original |
+|:------------------------------------------------|:-----------|---------:|:-------------------|:----------------------|-------------:|-------------:|--------------:|-----------:|-----------:|-----------:|-----------:|---------:|---------:|:-------------------------|------------:|---------------:|-----------------:|:-------------------------------|
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.52 | AR08750000 |       52 | Hope               | DISTRICT MUNICIPALITY |    833.47486 |    2400.4246 |          2110 |    1331330 |   495251.2 | 1131.18262 |        179 |  1330202 | 495331.2 | POINT (1330202 495331.2) |        2110 |           2110 | 1131.18262 \[m\] | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.53 | AR05500000 |       54 | Abbotsford         | CITY                  |     96.16909 |     188.5073 |          2132 |    1279162 |   456226.8 |  137.45356 |        244 |  1279231 | 456107.9 | POINT (1279197 456105.6) |        2134 |           2132 |  126.09783 \[m\] | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.54 | AR08750000 |       55 | Langley (District) | DISTRICT MUNICIPALITY |    137.46812 |     312.4044 |          2316 |    1249824 |   460260.4 |  256.00783 |         60 |  1249580 | 460182.4 | POINT (1249580 460182.4) |        2316 |           2316 |  256.00783 \[m\] | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.55 | AR05500000 |       56 | Langley (City)     | CITY                  |     68.78651 |     106.3595 |          2311 |    1244230 |   460036.7 |  101.39894 |        290 |  1244287 | 460120.5 | POINT (1244287 460120.5) |        2311 |           2311 |  101.39894 \[m\] | TRUE                           |
+| WHSE_BASEMAPPING.BC_MAJOR_CITIES_POINTS_500M.56 | AR05500000 |       57 | Surrey             | CITY                  |     68.00867 |     104.0260 |          2335 |    1233373 |   463621.2 |   68.86946 |        265 |  1233403 | 463682.8 | POINT (1233403 463682.8) |        2335 |           2335 |   68.86946 \[m\] | TRUE                           |
 
 # Visualize offsetting
 
