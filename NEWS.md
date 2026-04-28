@@ -1,3 +1,6 @@
+# offsetpointbc 1.1.1
+* updated offset_points_within_boundary() param definitions for rand_angle_min and rand_angle_max
+
 # offsetpointbc 1.1.0
 
 * added column showing distance point was offset by.
