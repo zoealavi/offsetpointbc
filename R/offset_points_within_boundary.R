@@ -39,12 +39,12 @@
 #' @param buffer_dist_to_correct_by_meters distance to buffer polygon boundaries towards inside ensuring offsetting remains within original polygon
 #' @param rand_dist_min if population data not provided, min value for random distance range to be sampled
 #' @param rand_dist_max if population data not provided, max value for random distance range to be sampled
-#' @param rand_angle_min if population data not provided, min value for random angle range to be sampled
-#' @param rand_angle_max if population data not provided, max value for random angle range to be sampled
+#' @param rand_angle_min min value for random angle range to be sampled (1)
+#' @param rand_angle_max max value for random angle range to be sampled (360)
 #'
 #' @return Returns sf point object where geometry of points have been offset from original input.
 #'
-#' Output contains several new columns showing how offsetting occurred, including: the original x/y coordinates, offset x/y coordinates, original boundary id, offset boundary id and the corrected boundary id.
+#' Output contains several new columns showing how offsetting occurred, including: the original x/y coordinates, offset x/y coordinates, original boundary id, offset boundary id, corrected boundary id, final distance offset by (in meters) and if applicable, a flag column for rows where final offset is less than 50m.
 #'
 #' Corrected x/y coordinates ensures any points that were offset beyond their original polygon boundary line (ex placed in water or a neighbouring boundary) are nudged back into their original boundary.
 #'
